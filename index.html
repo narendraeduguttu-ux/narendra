@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Narendra Pentest | Red Team Enthusiast &amp; Offensive Security Portfolio</title>
+<meta name="description" content="Narendra Pentest: aspiring penetration tester and red team enthusiast. Offensive security, network analysis, authorized lab practice and research.">
+<meta name="theme-color" content="#050505">
+<meta property="og:title" content="Narendra Pentest | Offensive Security Portfolio">
+<meta property="og:description" content="Think like an attacker. Secure like a defender.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--bg2:#0a0f0a;--g:#00ff66;--g2:#003b20;--term:#b5ffca;--w:#f5f5f5;--mute:#8b949e;--warn:#ffb000;--crit:#ff4444;--glow:rgba(0,255,102,.22);--mono:'JetBrains Mono',Consolas,monospace;--sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--w);font:400 1rem/1.7 var(--sans)}
+#matrix{position:fixed;inset:0;width:100%;height:100%;z-index:-2;opacity:.16}
+.grid-bg{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(var(--g2) 1px,transparent 1px),linear-gradient(90deg,var(--g2) 1px,transparent 1px);background-size:48px 48px;opacity:.25;animation:pan 30s linear infinite}
+@keyframes pan{to{background-position:48px 48px}}
+a{color:var(--g)}
+:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.skip{position:absolute;left:-999px;background:var(--g);color:#000;padding:.5rem 1rem;z-index:99}.skip:focus{left:0}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:.8rem 4vw;background:rgba(5,5,5,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--g2)}
+.logo{font:700 .95rem var(--mono);color:var(--w);text-decoration:none}.logo b{color:var(--g)}
+nav a{font:.78rem var(--mono);color:var(--mute);text-decoration:none;margin-left:1.1rem;padding:2px 0;border-bottom:1px solid transparent;transition:.2s}
+nav a:hover,nav a.active{color:var(--g);border-color:var(--g)}
+.burger{display:none;background:none;border:1px solid var(--g);border-radius:6px;padding:8px;cursor:pointer}
+.burger i{display:block;width:22px;height:2px;background:var(--g);margin:4px 0;transition:.3s}
+.burger[aria-expanded=true] i:nth-child(1){transform:translateY(6px) rotate(45deg)}.burger[aria-expanded=true] i:nth-child(2){opacity:0}.burger[aria-expanded=true] i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;max-width:1200px;margin:auto;padding:7rem 4vw 3rem}
+h1{font:700 clamp(2.2rem,5.5vw,4rem)/1.05 var(--mono);color:var(--g);text-shadow:0 0 24px var(--glow);letter-spacing:-.02em}
+.subtitle{font:600 .85rem var(--mono);color:var(--term);margin:1rem 0}
+.tagline{font:700 1.3rem var(--sans);margin-bottom:1rem}
+.intro{color:var(--mute);max-width:56ch}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+.btn{display:inline-block;font:600 .85rem var(--mono);padding:.75rem 1.3rem;border:1px solid var(--g);border-radius:4px;background:var(--g);color:#000;text-decoration:none;cursor:pointer;box-shadow:0 0 14px var(--glow);transition:.2s}
+.btn:hover{box-shadow:0 0 28px var(--g);transform:translateY(-2px)}.btn.ghost{background:transparent;color:var(--g)}.btn.ghost:hover{background:var(--g2)}.btn.sm{padding:.4rem .9rem;font-size:.75rem}
+.term{border:1px solid var(--g);border-radius:8px;background:#020402;box-shadow:0 0 30px var(--glow);font:.85rem/1.6 var(--mono);color:var(--term)}
+.term-bar{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.5rem .8rem;border-bottom:1px solid var(--g2);color:var(--mute);font-size:.7rem}
+.mini{background:none;border:1px solid var(--g2);color:var(--g);font:inherit;padding:2px 8px;border-radius:3px;cursor:pointer}.mini:hover{border-color:var(--g)}
+.term-out{height:300px;overflow-y:auto;padding:.8rem;white-space:pre-wrap;word-break:break-word}
+.term-out .c{color:var(--g)}.term-out .e{color:var(--crit)}
+.term-in{display:flex;gap:.5rem;padding:.6rem .8rem;border-top:1px solid var(--g2);align-items:center}
+.term-in span{color:var(--g);white-space:nowrap}.term-in input{flex:1;min-width:0;background:none;border:0;color:var(--w);font:inherit}.term-in input:focus{outline:none}
+.sec{max-width:1200px;margin:auto;padding:4.5rem 4vw}
+.title{font:700 clamp(1.4rem,3.5vw,2rem) var(--mono);margin-bottom:1.5rem;padding-left:.9rem;border-left:3px solid var(--g)}
+.sub{font:600 1.1rem var(--mono);color:var(--g);margin:2.2rem 0 1rem}
+.note{color:var(--mute);font:.8rem var(--mono);margin-bottom:1.2rem}
+.grid{display:grid;gap:1.1rem}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}.dash{grid-template-columns:repeat(4,1fr)}
+.panel,.card{background:rgba(10,15,10,.88);border:1px solid var(--g2);border-radius:8px;padding:1.3rem;transition:.25s}
+.card:hover,.panel:hover{border-color:var(--g);box-shadow:0 0 20px var(--glow)}
+.panel p+p{margin-top:.9rem}
+.card h3,.panel h3{font:600 .95rem var(--mono);color:var(--g);margin-bottom:.4rem}
+.card p,.card li{color:var(--mute);font-size:.9rem}
+.card .meta{font:.72rem var(--mono);color:var(--term);margin-top:.7rem}
+.card dl{font-size:.85rem}.card dt{font:.7rem var(--mono);color:var(--g);margin-top:.5rem}.card dd{color:var(--mute)}
+.card details{margin-top:.7rem;font-size:.85rem;color:var(--mute)}.card summary{cursor:pointer;color:var(--term);font:.75rem var(--mono)}
+.badge{float:right;font:.65rem var(--mono);padding:1px 8px;border-radius:20px;border:1px solid}
+.b-cur{color:var(--g)}.b-dev{color:var(--warn)}.b-fut,.b-plan{color:var(--mute)}.b-prog{color:var(--warn)}.b-done{color:var(--g)}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font:.75rem var(--mono);margin-bottom:1rem}
+.mission{font-size:1.1rem;color:var(--term);border-left:3px solid var(--g)}
+.dash .panel ul{list-style:none;font:.78rem var(--mono);color:var(--term)}.dash .panel li:before{content:"> ";color:var(--g)}
+.dash .big{font:700 1.8rem var(--mono);color:var(--g)}
+.bar{height:6px;background:var(--g2);border-radius:3px;margin-top:.5rem;overflow:hidden}.bar i{display:block;height:100%;background:var(--g);box-shadow:0 0 8px var(--g)}
+.shot{margin-top:.8rem;border:1px dashed var(--g2);border-radius:6px;aspect-ratio:16/9;display:grid;place-items:center;color:var(--mute);font:.7rem var(--mono);text-align:center;padding:.5rem;overflow:hidden}.shot img{width:100%;height:100%;object-fit:cover}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.chips button{background:none;border:1px solid var(--g2);color:var(--mute);font:.75rem var(--mono);padding:.35rem .8rem;border-radius:20px;cursor:pointer;transition:.2s}
+.chips button:hover,.chips button[aria-pressed=true]{color:#000;background:var(--g);border-color:var(--g)}
+.search,form input,form textarea{width:100%;background:#000;border:1px solid var(--g2);border-radius:5px;padding:.7rem;color:var(--w);font:.9rem var(--mono);margin-bottom:1rem}
+.search:focus,form input:focus,form textarea:focus{outline:none;border-color:var(--g);box-shadow:0 0 12px var(--glow)}
+.warn{border:1px solid var(--warn);color:var(--warn);background:rgba(255,176,0,.07);padding:.9rem 1.1rem;border-radius:6px;margin-bottom:1.3rem;font-size:.92rem}
+.flow{display:grid;grid-template-columns:repeat(8,1fr);gap:.5rem;margin-bottom:1rem}
+.flow button{background:rgba(10,15,10,.88);border:1px solid var(--g2);color:var(--mute);font:.72rem var(--mono);padding:.7rem .3rem;border-radius:6px;cursor:pointer;transition:.2s;text-align:center}
+.flow button b{display:block;color:var(--g);font-size:1rem}.flow button:hover,.flow button[aria-selected=true]{border-color:var(--g);color:var(--w);box-shadow:0 0 14px var(--glow)}
+.timeline{list-style:none;border-left:2px solid var(--g2);margin-left:8px}
+.timeline li{position:relative;padding:0 0 1.5rem 1.8rem}.timeline li:before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:#000;border:2px solid var(--mute)}
+.timeline li.done:before{border-color:var(--g);background:var(--g)}.timeline li.current:before{border-color:var(--warn);box-shadow:0 0 10px var(--warn)}
+.timeline h3{font:600 1rem var(--mono)}.timeline span{font:.7rem var(--mono);color:var(--mute)}
+form label{display:block;font:.75rem var(--mono);color:var(--g);margin-bottom:.3rem}form .bad{border-color:var(--crit)}.hp{position:absolute;left:-9999px}
+#status{margin-top:1rem;font:.8rem var(--mono);color:var(--term)}
+.links a{display:block;font:.95rem var(--mono);padding:.65rem 0;border-bottom:1px dashed var(--g2);text-decoration:none}.links a:hover{padding-left:.5rem}.links p{margin-top:1rem;color:var(--mute);font-size:.9rem}
+footer{border-top:1px solid var(--g2);padding:2.5rem 4vw;max-width:1200px;margin:auto;display:grid;gap:1rem;color:var(--mute);font:.8rem var(--mono)}footer b{color:var(--g)}footer nav a{margin:0 1rem 0 0}
+#top{position:fixed;right:1rem;bottom:1rem;width:44px;height:44px;border-radius:50%;border:1px solid var(--g);background:#000;color:var(--g);font-size:1.2rem;cursor:pointer;box-shadow:0 0 14px var(--glow);z-index:40}#top[hidden]{display:none}
+@media(max-width:1000px){.hero{grid-template-columns:1fr}.four,.dash{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(4,1fr)}nav a{margin-left:.7rem;font-size:.7rem}}
+@media(max-width:860px){.burger{display:block}#menu{position:absolute;top:100%;left:0;right:0;background:#050505;border-bottom:1px solid var(--g2);display:none;flex-direction:column;padding:.8rem 4vw}#menu.open{display:flex}#menu a{margin:0;padding:.75rem 0;border-bottom:1px dashed var(--g2);font-size:.85rem}}
+@media(max-width:640px){.two,.three,.four,.dash{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<canvas id="matrix" aria-hidden="true"></canvas><div class="grid-bg" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <a class="logo" href="#overview">NARENDRA<b>_PENTEST</b></a>
+  <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  <nav id="menu" aria-label="Main">
+    <a href="#overview">Overview</a><a href="#about">About</a><a href="#capabilities">Capabilities</a><a href="#arsenal">Arsenal</a><a href="#labs">Security Labs</a><a href="#research">Research</a><a href="#writeups">Writeups</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+<section id="overview" class="hero">
+  <div class="hero-text">
+    <h1>NARENDRA PENTEST</h1>
+    <p class="subtitle">RED TEAM ENTHUSIAST | OFFENSIVE SECURITY | PENETRATION TESTING</p>
+    <p class="tagline">Think Like an Attacker. Secure Like a Defender.</p>
+    <p class="intro">I am passionate about offensive security, penetration testing, and cybersecurity research. I explore security technologies, analyze potential vulnerabilities, practice in authorized environments, and continuously develop my technical skills.</p>
+    <div class="cta"><a class="btn" href="#methodology">Explore My Operations</a><a class="btn ghost" href="#labs">View My Labs</a><a class="btn ghost" href="#contact">Contact</a></div>
+  </div>
+  <div class="term" id="term">
+    <div class="term-bar"><span>root@narendra: ~ (simulated, runs only in your browser)</span><button id="clear" class="mini" type="button">Clear</button></div>
+    <div class="term-out" id="out" role="log" aria-live="polite"></div>
+    <label class="term-in"><span>root@narendra:~$</span><input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input" placeholder="type help"></label>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-dash"><h2 id="h-dash" class="title">Operator Dashboard</h2><div class="grid dash" id="dash"></div></section>
+
+<section id="about" class="sec"><h2 class="title">About the Operator</h2>
+  <div class="grid two">
+    <div class="panel"><p>I am drawn to cybersecurity because I want to understand how systems fail. That means learning how attackers think, how they map a target, and how weaknesses are found, then applying that knowledge responsibly to help fix them.</p><p>I work on security problems methodically, keep learning every week, and practice only in authorized environments such as my own lab and legal training platforms.</p></div>
+    <blockquote class="panel mission">“My mission is to understand how digital systems can fail, identify security weaknesses through authorized testing, and contribute to building stronger and more secure environments.”</blockquote>
+  </div>
+  <h3 class="sub">Why Work With Me</h3><div class="grid four" id="why"></div>
+</section>
+
+<section id="capabilities" class="sec"><h2 class="title">Capabilities</h2><p class="note">Levels are honest self-assessments. Edit them in script.js as you grow.</p><div class="legend" id="legend"></div><div class="grid four" id="caps"></div></section>
+<section id="arsenal" class="sec"><h2 class="title">Arsenal</h2><div class="grid four" id="tools"></div></section>
+<section id="github" class="sec"><h2 class="title">GitHub</h2><div class="panel" id="gh"></div></section>
+<section id="labs" class="sec"><h2 class="title">Security Labs</h2><p class="note">Everything here is Planned until you finish it. Run exercises only on systems you own or are explicitly authorized to test.</p><div class="chips" id="labChips" role="group" aria-label="Filter labs"></div><div class="grid three" id="labList"></div></section>
+<section id="research" class="sec"><h2 class="title">Vulnerability Research Center</h2><div class="grid" id="cves"></div></section>
+
+<section id="methodology" class="sec"><h2 class="title">Security Methodology</h2>
+  <div class="warn" role="note"><b>Authorization first.</b> No testing starts without written permission and a defined scope. Out-of-scope systems are never touched.</div>
+  <div class="flow" id="flow" role="tablist" aria-label="Methodology phases"></div><div class="panel" id="phase" role="tabpanel" aria-live="polite"></div></section>
+
+<section id="writeups" class="sec"><h2 class="title">Research &amp; Writeups</h2>
+  <input id="q" class="search" type="search" placeholder="Search writeups..." aria-label="Search writeups"><div class="chips" id="wChips" role="group" aria-label="Filter writeups"></div><div class="grid three" id="wList"></div><p id="wEmpty" class="note" hidden>No writeups match your search.</p></section>
+
+<section id="learning" class="sec"><h2 class="title">Learning &amp; Development</h2><ol class="timeline" id="time"></ol></section>
+
+<section id="contact" class="sec"><h2 class="title">Contact Center</h2>
+  <div class="grid two">
+    <form id="form" class="panel" novalidate><p class="note" id="demo">Demo mode until an email or form endpoint is set in script.js.</p>
+      <label for="name">Name</label><input id="name" maxlength="80" required autocomplete="name">
+      <label for="email">Email</label><input id="email" type="email" maxlength="120" required autocomplete="email">
+      <label for="msg">Message</label><textarea id="msg" rows="5" maxlength="1500" required></textarea>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" type="submit">Send Message</button><p id="status" role="status"></p></form>
+    <div class="panel links"><h3>Connect</h3><a id="lGit" href="#">GitHub</a><a id="lIn" href="#">LinkedIn</a><a id="lMail" href="#">Email</a><p>Open to collaboration, learning partnerships and security research discussions.</p></div>
+  </div>
+</section>
+</main>
+<footer><div><b>NARENDRA PENTEST</b><p>Think Like an Attacker. Secure Like a Defender.</p></div>
+<nav aria-label="Footer"><a href="#labs">Labs</a><a href="#writeups">Writeups</a><a href="#contact">Contact</a></nav>
+<p>&copy; <span id="year"></span> Narendra Pentest. Authorized, ethical security practice only.</p></footer>
+<button id="top" aria-label="Back to top" hidden>&#8593;</button>
+<script>
+'use strict';
+/* ========= EDIT YOUR CONTENT HERE ========= */
+const CONFIG = {
+  github: '',       // e.g. 'https://github.com/yourname' (enables live repo list)
+  linkedin: '',     // e.g. 'https://linkedin.com/in/yourname'
+  email: '',        // e.g. 'you@gmail.com'
+  formEndpoint: ''  // optional: a Formspree-style https URL. Empty = mailto/demo mode
+};
+const SKILLS = ['Linux Basics', 'Computer Networking', 'Cybersecurity Fundamentals', 'Ethical Hacking'];
+// level: cur = current knowledge, dev = developing, fut = future objective
+const CAPS = [
+  ['Linux Fundamentals', 'cur', 'Command line, file system, users and permissions.'],
+  ['Network Reconnaissance', 'cur', 'Host and service discovery with Nmap in authorized labs.'],
+  ['Network Traffic Analysis', 'cur', 'Capturing and reading packets with Wireshark.'],
+  ['Basic Security Assessment', 'cur', 'Reviewing systems for common weaknesses.'],
+  ['Vulnerability Identification Concepts', 'cur', 'Understanding how weaknesses are classified and rated.'],
+  ['Security Research', 'dev', 'Reading advisories and studying how attacks work.'],
+  ['Authorized Lab Testing', 'fut', 'Structured practice in my own lab and legal platforms.'],
+  ['Technical Documentation', 'fut', 'Clear writeups and reports of what I test and learn.']
+];
+const LEVELS = { cur: 'Current knowledge', dev: 'Developing', fut: 'Future objective' };
+const TOOLS = [
+  ['Linux', '$_', 'Operating system for security work', 'Operating System', 'Learning'],
+  ['Nmap', '◎', 'Network and service discovery', 'Reconnaissance', 'Learning'],
+  ['Wireshark', '≈', 'Packet capture and protocol analysis', 'Traffic Analysis', 'Learning'],
+  ['Kali Linux', '⌘', 'Security-focused Linux distribution', 'Platform', 'Set your status'],
+  ['VirtualBox', '▣', 'Isolated virtual lab machines', 'Virtualization', 'Set your status'],
+  ['Git', '⑂', 'Version control for projects', 'Development', 'Set your status'],
+  ['GitHub', '◆', 'Hosting and sharing project code', 'Development', 'Set your status']
+];
+const LABS = [
+  ['Network Scanning Lab', 'Network Security', 'Map hosts and services in a lab network.', 'VirtualBox network I own', 'Nmap, Wireshark'],
+  ['Linux Hardening Lab', 'Linux Security', 'Review permissions and services on a Linux VM.', 'Local Linux VM', 'Linux CLI'],
+  ['Web Security Basics', 'Web Application Security', 'Study common web weaknesses on a deliberately vulnerable app.', 'Local practice app', 'Browser, proxy'],
+  ['Vulnerability Assessment Practice', 'Vulnerability Assessment', 'Identify and rate weaknesses on a lab target.', 'Lab VM', 'Add tools'],
+  ['Pentest Methodology Practice', 'Penetration Testing Practice', 'Walk the full methodology on an authorized target.', 'Legal training platform', 'Add tools'],
+  ['First CTF Challenges', 'CTF Challenges', 'Solve beginner challenges on a public CTF platform.', 'Public CTF platform', 'Add tools']
+].map(l => ({ name: l[0], cat: l[1], objective: l[2], env: l[3], tools: l[4], status: 'Planned' }));
+const WRITEUPS = [
+  ['Getting Started with Nmap (placeholder)', 'Nmap', 'Scanning basics and reading results.'],
+  ['Reading a Wireshark Capture (placeholder)', 'Wireshark', 'Filters and protocol walk-through.'],
+  ['Linux Permissions Explained (placeholder)', 'Linux', 'Users, groups and file modes.'],
+  ['How TCP Works (placeholder)', 'Networking', 'Handshake, ports and common states.']
+].map(w => ({ title: w[0], cat: w[1], intro: w[2] }));
+const WCATS = ['Linux', 'Networking', 'Nmap', 'Wireshark', 'Web Security', 'Penetration Testing', 'Red Team', 'Cybersecurity Fundamentals'];
+// Add ONLY verified, published CVEs. Fields: name, cve, severity, description, impact, affected, mitigation, ref (official URL), type ('Published' or 'Personal research')
+const CVES = [];
+const WHY = ['Analytical Thinking', 'Security-First Mindset', 'Problem-Solving Skills', 'Technical Curiosity', 'Continuous Learning', 'Ethical Responsibility', 'Attention to Detail', 'Practical Research Approach'];
+const METHOD = [
+  ['Reconnaissance', 'Collect publicly available information about the authorized target to understand its footprint.'],
+  ['Enumeration', 'Identify live hosts, open ports and running services within the agreed scope.'],
+  ['Attack Surface Analysis', 'Map entry points and trust boundaries to decide where to look first.'],
+  ['Vulnerability Assessment', 'Match discovered services and versions against known weaknesses and misconfigurations.'],
+  ['Authorized Security Testing', 'Validate findings carefully, only with permission and inside the defined rules of engagement.'],
+  ['Evidence Collection', 'Record screenshots, commands and outputs so every finding can be reproduced.'],
+  ['Risk Analysis', 'Rate each finding by likelihood and business impact to set priorities.'],
+  ['Reporting and Remediation', 'Write clear findings with practical fixes, then support retesting.']
+];
+// state: done | current | planned. Update as you progress.
+const TIMELINE = [['Linux Fundamentals', 'done'], ['Computer Networking', 'done'], ['Network Analysis', 'done'], ['Vulnerability Assessment', 'done'], ['Web Application Security', 'planned'], ['Penetration Testing', 'planned'], ['Advanced Red Team Operations', 'planned']];
+/* ========================================== */
+
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function h(tag, cls, text, kids) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  (kids || []).forEach(k => e.append(k));
+  return e;
+}
+const badge = (txt, cls) => h('span', 'badge ' + cls, txt);
+const dl = pairs => h('dl', '', null, pairs.flatMap(([t, d]) => [h('dt', '', t), h('dd', '', d)]));
+const safeUrl = u => /^https:\/\//.test(u);
+
+/* ---- Dashboard ---- */
+(function () {
+  const done = TIMELINE.filter(t => t[1] === 'done').length, cur = TIMELINE.filter(t => t[1] === 'current').length;
+  const bar = h('div', 'bar', null, [h('i')]); bar.firstChild.style.width = (done / TIMELINE.length * 100) + '%';
+  const panel = (t, big, items, extra) => h('div', 'panel', null, [h('h3', '', t), h('div', 'big', big), h('ul', '', null, items.map(i => h('li', '', i))), extra || ''].filter(Boolean));
+  $('#dash').append(
+    panel('Technical Skills', SKILLS.length, SKILLS),
+    panel('Security Tools', TOOLS.length, TOOLS.slice(0, 4).map(t => t[0])),
+    panel('Research Areas', WCATS.length, WCATS.slice(0, 3)),
+    panel('Learning Progress', done + '/' + TIMELINE.length, [cur + ' stage(s) in progress'], bar));
+  WHY.forEach(w => $('#why').append(h('div', 'card', null, [h('h3', '', w)])));
+})();
+
+/* ---- Capabilities & arsenal ---- */
+Object.entries(LEVELS).forEach(([k, v]) => $('#legend').append(badge(v, 'b-' + k)));
+CAPS.forEach(c => $('#caps').append(h('article', 'card', null, [badge(LEVELS[c[1]], 'b-' + c[1]), h('h3', '', c[0]), h('p', '', c[2])])));
+TOOLS.forEach(t => $('#tools').append(h('article', 'card', null, [h('div', 'big', t[1]), h('h3', '', t[0]), h('p', '', t[2]), h('p', 'meta', t[3] + ' | ' + t[4])])));
+
+(async function github() {
+  const box = $('#gh'), g = CONFIG.github;
+  if (!g) { box.append(h('p', 'note', 'GitHub is not connected yet. Set CONFIG.github in script.js to show your real public repositories here.')); return; }
+  const user = g.replace(/\/+$/, '').split('/').pop();
+  box.append(Object.assign(h('a', 'btn sm', 'View GitHub profile'), { href: g, target: '_blank', rel: 'noopener noreferrer' }));
+  try {
+    const r = await fetch('https://api.github.com/users/' + encodeURIComponent(user) + '/repos?sort=updated&per_page=6');
+    if (!r.ok) throw 0;
+    const repos = await r.json();
+    if (!repos.length) { box.append(h('p', 'note', 'No public repositories yet.')); return; }
+    const grid = h('div', 'grid three'); grid.style.marginTop = '1rem';
+    repos.forEach(x => { if (safeUrl(x.html_url)) grid.append(h('article', 'card', null, [h('h3', '', x.name), h('p', '', x.description || 'No description.'), h('p', 'meta', x.language || 'n/a'), Object.assign(h('a', 'btn sm ghost', 'Open repo'), { href: x.html_url, target: '_blank', rel: 'noopener noreferrer' })])); });
+    box.append(grid);
+  } catch { box.append(h('p', 'note', 'Could not load repositories right now. Check the username or try again later.')); }
+})();
+
+/* ---- Labs ---- */
+function chipRow(el, labels, onPick) {
+  ['All', ...labels].forEach((l, i) => {
+    const b = h('button', '', l); b.type = 'button'; b.setAttribute('aria-pressed', i === 0);
+    b.onclick = () => { $$('button', el).forEach(x => x.setAttribute('aria-pressed', x === b)); onPick(l); };
+    el.append(b);
+  });
+}
+function renderLabs(f) {
+  const box = $('#labList'); box.textContent = '';
+  LABS.filter(l => f === 'All' || l.cat === f).forEach(l => box.append(h('article', 'card', null, [badge(l.status, l.status === 'Completed' ? 'b-done' : l.status === 'In Progress' ? 'b-prog' : 'b-plan'), h('h3', '', l.name), h('p', 'meta', l.cat),
+    dl([['Objective', l.objective], ['Environment', l.env], ['Tools', l.tools]]),
+    h('details', '', null, [h('summary', '', 'Methodology, findings, lessons'), h('p', '', 'Add these after you complete the lab. Nothing is claimed until then.')]),
+    h('div', 'shot', 'Screenshot placeholder')])));
+}
+chipRow($('#labChips'), [...new Set(LABS.map(l => l.cat))], renderLabs); renderLabs('All');
+
+/* ---- Research center ---- */
+(function () {
+  const box = $('#cves');
+  if (!CVES.length) {
+    box.append(h('div', 'panel', null, [h('h3', '', 'No entries yet'), h('p', '', 'Entries appear here only when added to the CVES list in script.js. Each needs: name, CVE ID, severity, description, impact, affected software, mitigation and an official reference link, and must be labeled Published or Personal research.'),
+      Object.assign(h('a', 'btn sm ghost', 'Verify CVEs at NVD'), { href: 'https://nvd.nist.gov/', target: '_blank', rel: 'noopener noreferrer' })]));
+    return;
+  }
+  CVES.forEach(c => box.append(h('article', 'card', null, [badge(c.severity, c.severity === 'Critical' ? 'e' : 'b-dev'), h('h3', '', c.name + (c.cve ? ' (' + c.cve + ')' : '')), h('p', 'meta', c.type),
+    dl([['Description', c.description], ['Impact', c.impact], ['Affected', c.affected], ['Mitigation', c.mitigation]]), safeUrl(c.ref) ? Object.assign(h('a', 'btn sm ghost', 'Official reference'), { href: c.ref, target: '_blank', rel: 'noopener noreferrer' }) : '']))); 
+})();
+
+/* ---- Methodology ---- */
+(function () {
+  const flow = $('#flow'), panel = $('#phase');
+  const show = i => {
+    $$('button', flow).forEach((b, j) => b.setAttribute('aria-selected', i === j));
+    panel.textContent = ''; panel.append(h('h3', '', String(i + 1).padStart(2, '0') + '. ' + METHOD[i][0]), h('p', '', METHOD[i][1]));
+  };
+  METHOD.forEach((m, i) => { const b = h('button', '', null, [h('b', '', String(i + 1).padStart(2, '0')), m[0]]); b.type = 'button'; b.setAttribute('role', 'tab'); b.onclick = () => show(i); flow.append(b); });
+  show(0);
+})();
+
+/* ---- Writeups ---- */
+function renderW() {
+  const q = $('#q').value.trim().toLowerCase(), cat = $('#wChips .on')?.dataset.c || 'All', box = $('#wList'); box.textContent = '';
+  const hits = WRITEUPS.filter(w => (cat === 'All' || w.cat === cat) && (w.title + w.intro + w.cat).toLowerCase().includes(q));
+  hits.forEach(w => box.append(h('article', 'card', null, [badge(w.cat, 'b-fut'), h('h3', '', w.title), h('p', '', w.intro),
+    h('details', '', null, [h('summary', '', 'Technical explanation, tools, takeaways, references'), h('p', '', 'Write the full article here. Include tools, methodology, screenshots, key takeaways and references.')])])));
+  $('#wEmpty').hidden = hits.length > 0;
+}
+chipRow($('#wChips'), WCATS, c => { $$('#wChips button').forEach(b => { b.classList.toggle('on', b.textContent === c); b.dataset.c = b.textContent; }); renderW(); });
+$$('#wChips button').forEach(b => b.dataset.c = b.textContent);
+$('#q').addEventListener('input', renderW); renderW();
+
+/* ---- Timeline ---- */
+TIMELINE.forEach(([n, s]) => $('#time').append(h('li', s, null, [h('h3', '', n), h('span', '', { done: 'Completed', current: 'In progress', planned: 'Planned' }[s])])));
+
+/* ---- Links ---- */
+const LINKS = { lGit: [CONFIG.github, 'GitHub'], lIn: [CONFIG.linkedin, 'LinkedIn'], lMail: [CONFIG.email && 'mailto:' + CONFIG.email, 'Email'] };
+Object.entries(LINKS).forEach(([id, [url, label]]) => {
+  const a = $('#' + id);
+  if (url) { a.href = url; a.textContent = label + (id === 'lMail' ? ': ' + CONFIG.email : ''); if (id !== 'lMail') { a.target = '_blank'; a.rel = 'noopener noreferrer'; } }
+  else { a.textContent = label + ' (placeholder: set in script.js)'; a.href = '#contact'; a.onclick = e => { e.preventDefault(); $('#status').textContent = 'Set your ' + label + ' details in the CONFIG block of script.js.'; }; }
+  const f = a.cloneNode(true); f.id = ''; f.textContent = label; $('footer nav').append(f);
+});
+$('#year').textContent = new Date().getFullYear();
+
+/* ---- Contact form ---- */
+let lastSend = 0;
+if (CONFIG.formEndpoint || CONFIG.email) $('#demo').textContent = 'Messages are sent through your configured contact method.';
+$('#form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const s = $('#status'), n = $('#name'), em = $('#email'), m = $('#msg');
+  if ($('.hp').value) return;
+  let ok = true;
+  [n, em, m].forEach(i => { const bad = !i.value.trim() || (i === em && !/^\S+@\S+\.\S+$/.test(i.value)); i.classList.toggle('bad', bad); ok = ok && !bad; });
+  if (!ok) { s.textContent = 'Enter your name, a valid email and a message.'; return; }
+  if (Date.now() - lastSend < 30000) { s.textContent = 'Please wait a moment before sending another message.'; return; }
+  const data = { name: n.value.trim(), email: em.value.trim(), message: m.value.trim() };
+  if (CONFIG.formEndpoint && safeUrl(CONFIG.formEndpoint)) {
+    try {
+      const r = await fetch(CONFIG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
+      if (!r.ok) throw 0; lastSend = Date.now(); s.textContent = 'Message sent. Thank you.'; e.target.reset();
+    } catch { s.textContent = 'Sending failed. Please email directly instead.'; }
+  } else if (CONFIG.email) {
+    lastSend = Date.now();
+    location.href = 'mailto:' + CONFIG.email + '?subject=' + encodeURIComponent('Portfolio message from ' + data.name) + '&body=' + encodeURIComponent('From: ' + data.name + ' <' + data.email + '>\n\n' + data.message);
+    s.textContent = 'Opening your email app to send the message.';
+  } else s.textContent = 'Demo mode: your form is valid, but no email or endpoint is configured yet.';
+});
+
+/* ---- Nav, scroll, back to top ---- */
+const burger = $('#burger'), menu = $('#menu');
+const closeMenu = () => { menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
+burger.onclick = () => burger.setAttribute('aria-expanded', menu.classList.toggle('open'));
+$$('a', menu).forEach(a => a.addEventListener('click', closeMenu));
+addEventListener('keydown', e => e.key === 'Escape' && closeMenu());
+const secs = $$('main [id]').filter(s => $(`#menu a[href="#${s.id}"]`));
+addEventListener('scroll', () => {
+  $('#top').hidden = scrollY < 500;
+  const cur = secs.filter(s => s.offsetTop <= scrollY + 140).pop();
+  $$('#menu a').forEach(a => a.classList.toggle('active', !!cur && a.hash === '#' + cur.id));
+}, { passive: true });
+$('#top').onclick = () => scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+
+/* ---- Matrix background ---- */
+(function () {
+  const c = $('#matrix'), x = c.getContext('2d'), ch = '01ABCDEF<>/{}$#'.split(''), sz = 16; let d;
+  const rs = () => { c.width = innerWidth; c.height = innerHeight; d = Array.from({ length: Math.ceil(c.width / sz) }, () => Math.random() * -40); };
+  rs(); addEventListener('resize', rs);
+  const draw = () => { x.fillStyle = 'rgba(5,5,5,.1)'; x.fillRect(0, 0, c.width, c.height); x.fillStyle = '#00ff66'; x.font = sz + 'px monospace';
+    d.forEach((y, i) => { x.fillText(ch[Math.random() * ch.length | 0], i * sz, y * sz); d[i] = y * sz > c.height && Math.random() > .975 ? 0 : y + 1; }); };
+  calm ? draw() : setInterval(draw, 60);
+})();
+
+/* ---- Simulated terminal: pure JavaScript, never runs OS commands ---- */
+(function () {
+  const out = $('#out'), inp = $('#cmd'), hist = []; let hi = 0, chain = Promise.resolve();
+  const sleep = ms => new Promise(r => setTimeout(r, calm ? 0 : ms));
+  const line = (t, c) => { const d = h('div', c || '', t); out.append(d); out.scrollTop = out.scrollHeight; return d; };
+  async function typeLine(t, cls) { const d = line('', cls); for (let i = 1; i <= t.length; i++) { d.textContent = t.slice(0, i); if (!calm) await sleep(12); } out.scrollTop = out.scrollHeight; }
+  const list = a => a.map(x => '  - ' + x);
+  const CMDS = {
+    help: () => ['Available commands:', '  help      show this list', '  whoami    who I am', '  focus     my focus area', '  mission   my mission', '  about     short introduction', '  skills    technical skills', '  arsenal   tools I use', '  labs      lab status', '  research  research areas', '  contact   how to reach me', '  clear     clear the terminal'],
+    whoami: () => ['Narendra Pentest'],
+    focus: () => ['Offensive Security'],
+    mission: () => ['Identify weaknesses. Understand threats. Improve security.'],
+    about: () => ['Aspiring penetration tester and red team enthusiast.', 'I practice only in authorized environments.'],
+    skills: () => list(SKILLS),
+    arsenal: () => list(TOOLS.map(t => t[0] + ' (' + t[4] + ')')),
+    labs: () => ['No labs completed yet.', ...list(LABS.map(l => l.name + ': ' + l.status))],
+    research: () => list(WCATS).concat(CVES.length ? [] : ['No CVE entries published yet.']),
+    contact: () => ['Email:    ' + (CONFIG.email || 'not set yet'), 'GitHub:   ' + (CONFIG.github || 'not set yet'), 'LinkedIn: ' + (CONFIG.linkedin || 'not set yet')],
+    clear: () => null
+  };
+  function run(raw, simulate) {
+    chain = chain.then(async () => {
+      const cmd = raw.trim().toLowerCase(); if (!cmd && !simulate) return;
+      const row = line('', ''); row.append(h('span', 'c', 'root@narendra:~$ '));
+      const t = h('span'); row.append(t);
+      if (simulate) { for (let i = 1; i <= raw.length; i++) { t.textContent = raw.slice(0, i); await sleep(70); } await sleep(250); } else t.textContent = raw;
+      if (!simulate) { hist.push(raw); hi = hist.length; }
+      if (cmd === 'clear') { out.textContent = ''; return; }
+      if (!Object.hasOwn(CMDS, cmd)) { line('command not found: ' + cmd.slice(0, 40) + '. Type help for the list. (This terminal is simulated and runs no system commands.)', 'e'); return; }
+      for (const l of CMDS[cmd]()) await typeLine(l);
+    });
+  }
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { run(inp.value, false); inp.value = ''; }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (hi > 0) inp.value = hist[--hi]; }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); hi = Math.min(hi + 1, hist.length); inp.value = hist[hi] || ''; }
+    else if (e.key === 'l' && e.ctrlKey) { e.preventDefault(); out.textContent = ''; }
+  });
+  $('#clear').onclick = () => { out.textContent = ''; inp.focus(); };
+  $('#term').addEventListener('click', e => { if (!e.target.closest('button')) inp.focus(); });
+  ['whoami', 'focus', 'mission'].forEach(c => run(c, true));
+})();
+</script>
+</body>
+</html>
